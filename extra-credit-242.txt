@@ -1,0 +1,14 @@
+Basic Instructions:
+You should never, for any reason, use Scanner or make a println statement. Either of these will cause your project to be worth zero points.
+
+You should have at least four packages, game.project, game.project.commands, game.project.maps, and game.project.players. The code may not run
+if all of these packages are not present (even if they're empty). 
+
+Basic Tasks:
+In game.project, you should implement an abstract class for ICombatant called Combatant. This handles your basic combat logic.
+In game.project, you should implement abstract classes for IPlayer, IMap, and IMapTile called Player, Map, and MapTile. This should handle 
+your basic movement logic. 
+In game.project.maps, you should create at least one map, composed of at least four unique map tiles. This map must support a default (no argument) constructor
+In game.project.players, you should create 
+
+
