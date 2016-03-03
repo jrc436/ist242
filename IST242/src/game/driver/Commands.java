@@ -46,164 +46,164 @@ public class Commands {
 	public String hp() {
 		return "Current HP: "+p.getCurrentHP();
 	}
-	public String inventory() {
-		String retval = "";
-		for (IItem i : p.getItems()) {
-			retval = app(retval, i.getName());
-		}
-		return retval;
-	}
-	public String give(String character, String item) {
-		
-	}
-	public String equip(String item) {
-		
-	}
-	public String unequip(String item) {
-		
-	}
-	public String use(String item) {
-		
-	}
-	public String look(String item) {
-		
-	}
-	public String loot(String objName) {
-		String possibleValue = "Nothing named "+objName+" is lootable";
-		for (Inhabitant i : p.getCurrentTile().getInhabitants()) {
-			if (i.getName().equals(objName)) {
-				if (i instanceof IItem) {
-					return app("You have successfully looted "+objName, processAggro());
-				}
-				else {
-					possibleValue = objName+ " is not an item that can be looted";
-				}
-			}
-		}
-		return possibleValue;
-	}
-	public String examine(String objName) {
-		for (IItem i : p.getItems()) {
-			if (i.getName().equals(objName)) {
-				return app(i.examine(), processAggro());
-			}
-		}
-		for (Inhabitant i : p.getCurrentTile().getInhabitants()) {
-			if (i.getName().equals(objName)) {
-				return app(i.examine(), processAggro());
-			}
-		}
-		return "Nothing named "+objName+" is visible";
-	}
-	public String look(Direction d) throws DeadPlayerException {
-		if (p.dead()) {
-			throw new DeadPlayerException();
-		}
-		if (d == null) {
-			return app(lookHere(), processAggro());
-		}
-		return app(lookSomewhere(p.getAdjacentTile(d)), processAggro());
-	}
-	private String lookHere() {
-		String retval = lookSomewhere(p.getCurrentTile());
-		retval = app(retval, "You also see:");
-		for (Inhabitant in : p.getCurrentTile().getInhabitants()) {
-			if (in instanceof Monster) {
-				if (((Monster)in).isBoss()) {
-					app(retval, "The boss, "+in.getName());
-				}
-				else {
-					app(retval, "an evil "+in.getName());
-				}
-			}
-			else if (in instanceof IItem) {
-				app(retval, "Item: "+in.getName());
-			}
-			else if (in instanceof IFriendlyCharacter) {
-				app(retval, "A friend, "+in.getName());
-			}
-		}
-		return retval;
-	}
-	private String lookSomewhere(IMapTile mt) {
-		return mt.description();
-	}
-	public String move(Direction d) throws DeadPlayerException {
-		if (p.dead()) {
-			throw new DeadPlayerException();
-		}
-		if (d == null) {
-			return "Move where? Type help if needed!";
-		}
-		if (p.move(d)) {
-			String retval = p.getName()+" has moved to the "+d.toString();
-			return app(retval, processAggro());
-		}
-		return "You cannot move to the "+d.toString();
-	}
-	private String processAggro() {
-		return processAggro(null);
-	}
-	private String processAggro(Monster e) {
-		String retval = "";
-		for (Inhabitant in : p.getCurrentTile().getInhabitants()) {
-			if (in instanceof Monster && in != e) {
-				Monster m = (Monster) in;
-				if (m.aggressive()) {
-					retval += singleAttack(m, p, false);
-				}
-			}
-		}
-		return retval;
-	}
-	public String attack(String monsterName) throws DeadPlayerException {
-		if (p.dead()) {
-			throw new DeadPlayerException();
-		}
-		String possibleResponse = "There is nothing to attack named that";
-		for (Inhabitant i : p.getCurrentTile().getInhabitants()) {
-			if (i.getName().equals(monsterName)) {
-				if (i instanceof Monster) {
-					return attackHelp((Monster)i);
-				}
-				else {
-					possibleResponse = "That is not a valid target of an attack!";
-				}
-			}
-		}
-		return possibleResponse;
-	}
+//	public String inventory() {
+//		String retval = "";
+//		for (IItem i : p.getItems()) {
+//			retval = app(retval, i.getName());
+//		}
+//		return retval;
+//	}
+//	public String give(String character, String item) {
+//		
+//	}
+//	public String equip(String item) {
+//		
+//	}
+//	public String unequip(String item) {
+//		
+//	}
+//	public String use(String item) {
+//		
+//	}
+//	public String look(String item) {
+//		
+//	}
+//	public String loot(String objName) {
+//		String possibleValue = "Nothing named "+objName+" is lootable";
+//		for (Inhabitant i : p.getCurrentTile().getInhabitants()) {
+//			if (i.getName().equals(objName)) {
+//				if (i instanceof IItem) {
+//					return app("You have successfully looted "+objName, processAggro());
+//				}
+//				else {
+//					possibleValue = objName+ " is not an item that can be looted";
+//				}
+//			}
+//		}
+//		return possibleValue;
+//	}
+//	public String examine(String objName) {
+//		for (IItem i : p.getItems()) {
+//			if (i.getName().equals(objName)) {
+//				return app(i.examine(), processAggro());
+//			}
+//		}
+//		for (Inhabitant i : p.getCurrentTile().getInhabitants()) {
+//			if (i.getName().equals(objName)) {
+//				return app(i.examine(), processAggro());
+//			}
+//		}
+//		return "Nothing named "+objName+" is visible";
+//	}
+//	public String look(Direction d) throws DeadPlayerException {
+//		if (p.dead()) {
+//			throw new DeadPlayerException();
+//		}
+//		if (d == null) {
+//			return app(lookHere(), processAggro());
+//		}
+//		return app(lookSomewhere(p.getAdjacentTile(d)), processAggro());
+//	}
+//	private String lookHere() {
+//		String retval = lookSomewhere(p.getCurrentTile());
+//		retval = app(retval, "You also see:");
+//		for (Inhabitant in : p.getCurrentTile().getInhabitants()) {
+//			if (in instanceof Monster) {
+//				if (((Monster)in).isBoss()) {
+//					app(retval, "The boss, "+in.getName());
+//				}
+//				else {
+//					app(retval, "an evil "+in.getName());
+//				}
+//			}
+//			else if (in instanceof IItem) {
+//				app(retval, "Item: "+in.getName());
+//			}
+//			else if (in instanceof IFriendlyCharacter) {
+//				app(retval, "A friend, "+in.getName());
+//			}
+//		}
+//		return retval;
+//	}
+//	private String lookSomewhere(IMapTile mt) {
+//		return mt.description();
+//	}
+//	public String move(Direction d) throws DeadPlayerException {
+//		if (p.dead()) {
+//			throw new DeadPlayerException();
+//		}
+//		if (d == null) {
+//			return "Move where? Type help if needed!";
+//		}
+//		if (p.move(d)) {
+//			String retval = p.getName()+" has moved to the "+d.toString();
+//			return app(retval, processAggro());
+//		}
+//		return "You cannot move to the "+d.toString();
+//	}
+//	private String processAggro() {
+//		return processAggro(null);
+//	}
+//	private String processAggro(Monster e) {
+//		String retval = "";
+//		for (Inhabitant in : p.getCurrentTile().getInhabitants()) {
+//			if (in instanceof Monster && in != e) {
+//				Monster m = (Monster) in;
+//				if (m.aggressive()) {
+//					retval += singleAttack(m, p, false);
+//				}
+//			}
+//		}
+//		return retval;
+//	}
+//	public String attack(String monsterName) throws DeadPlayerException {
+//		if (p.dead()) {
+//			throw new DeadPlayerException();
+//		}
+//		String possibleResponse = "There is nothing to attack named that";
+//		for (Inhabitant i : p.getCurrentTile().getInhabitants()) {
+//			if (i.getName().equals(monsterName)) {
+//				if (i instanceof Monster) {
+//					return attackHelp((Monster)i);
+//				}
+//				else {
+//					possibleResponse = "That is not a valid target of an attack!";
+//				}
+//			}
+//		}
+//		return possibleResponse;
+//	}
 	
 	private String getFormatMonsterName(Monster m) {
 		return m.isBoss() ? m.getName() : "the "+m.getName();
 	}
 	
-	private String attackHelp(Monster m) {
-		String retval = "";
-		if (m.speed() > p.speed()) {
-			retval =  app(singleAttack(m, p, false), singleAttack(p, m, true));
-		}
-		else {
-			retval = app(singleAttack(p, m, true), singleAttack(m, p, false));
-		}
-		return app(retval, processAggro(m));
-	}
-	private String singleAttack(ICombatant giver, ICombatant receiver, boolean pGiver) {
-		if (giver.dead()) {
-			return "";
-		}
-		String gName = pGiver ? giver.getName() : getFormatMonsterName((Monster)receiver);
-		String rName = pGiver ? getFormatMonsterName((Monster)receiver) : giver.getName();
-		int damage = giver.attack(receiver.getDefense());
-		String retval = damageHelp(gName, p.getName(), damage);
-		receiver.takeDamage(damage);
-		if (damage > receiver.getCurrentHP()) {
-			receiver.die();
-			retval = app(retval, deathHelp(gName, rName));
-			return pGiver ? app(retval, this.m.failureMessage()) : retval;
-		}
-		return retval;
-	}
+//	private String attackHelp(Monster m) {
+//		String retval = "";
+//		if (m.speed() > p.speed()) {
+//			retval =  app(singleAttack(m, p, false), singleAttack(p, m, true));
+//		}
+//		else {
+//			retval = app(singleAttack(p, m, true), singleAttack(m, p, false));
+//		}
+//		return app(retval, processAggro(m));
+//	}
+//	private String singleAttack(ICombatant giver, ICombatant receiver, boolean pGiver) {
+//		if (giver.dead()) {
+//			return "";
+//		}
+//		String gName = pGiver ? giver.getName() : getFormatMonsterName((Monster)receiver);
+//		String rName = pGiver ? getFormatMonsterName((Monster)receiver) : giver.getName();
+//		int damage = giver.attack(receiver.getDefense());
+//		String retval = damageHelp(gName, p.getName(), damage);
+//		receiver.takeDamage(damage);
+//		if (damage > receiver.getCurrentHP()) {
+//			receiver.die();
+//			retval = app(retval, deathHelp(gName, rName));
+//			return pGiver ? app(retval, this.m.failureMessage()) : retval;
+//		}
+//		return retval;
+//	}
 	private String damageHelp(String actor, String receiver, int damage) {
 		return actor + " has dealt "+damage+" damage to "+receiver;
 	}

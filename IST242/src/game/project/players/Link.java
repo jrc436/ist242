@@ -84,16 +84,4 @@ public class Link extends Combatant implements IAdvancedPlayer {
 		
 	}
 
-	@Override
-	public boolean nameSettable() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setName(String name) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
